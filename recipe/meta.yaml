@@ -10,8 +10,6 @@ source:
   sha256: 50f521ba49e50ea5c8d4092abcb651e52305128f0e3f3c012cf0dbb97429f1da
 
 build:
-  skip: true  # [win or osx]
-  skip: true  # [py<38]
   entry_points:
     - openllm = openllm_cli.entrypoint:cli
     - openllm-dive-bentos = openllm_cli.extension.dive_bentos:cli
@@ -22,6 +20,7 @@ build:
     - openllm-playground = openllm_cli.extension.playground:cli
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  noarch: python
 
 requirements:
   host:
