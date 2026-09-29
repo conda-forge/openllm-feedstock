@@ -11,13 +11,7 @@ source:
 
 build:
   entry_points:
-    - openllm = openllm_cli.entrypoint:cli
-    - openllm-dive-bentos = openllm_cli.extension.dive_bentos:cli
-    - openllm-get-containerfile = openllm_cli.extension.get_containerfile:cli
-    - openllm-get-prompt = openllm_cli.extension.get_prompt:cli
-    - openllm-list-bentos = openllm_cli.extension.list_bentos:cli
-    - openllm-list-models = openllm_cli.extension.list_models:cli
-    - openllm-playground = openllm_cli.extension.playground:cli
+    - openllm = openllm.__main__:app
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
   noarch: python
@@ -25,27 +19,26 @@ build:
 requirements:
   host:
     - python
-    - hatchling ==1.18.0
-    - hatch-vcs ==0.3.0
-    - hatch-fancy-pypi-readme ==23.1.0
+    - hatchling ==1.27.0
+    - hatch-vcs ==0.4.0
     - pip
   run:
     - python >={{ python_min }}
-    - bentoml >=1.1.11,<1.2
-    - transformers >=4.36.0
-    - openllm-client >={{ version }}
-    - openllm-core >={{ version }}
-    - safetensors
-    - optimum >=1.12.0
-    - accelerate
-    - ghapi
-    - einops
-    - sentencepiece
-    - scipy
-    - python-build <1
-    - click >=8.1.3
-    - cuda-python
-    - bitsandbytes <0.42
+    - attrs
+    - bentoml >=1.4.8
+    - dulwich
+    - hf-xet
+    - huggingface_hub
+    - nvidia-ml-py
+    - openai ==1.73.0
+    - pip-requirements-parser
+    - psutil
+    - pyaml
+    - questionary
+    - tabulate
+    - typer
+    - typing_extensions >=4.12.2
+    - uv
 
 test:
   imports:
@@ -53,11 +46,6 @@ test:
   commands:
     - pip check
     - openllm --help
-    - openllm-dive-bentos --help
-    - openllm-get-containerfile --help
-    - openllm-get-prompt --help
-    - openllm-list-bentos --help
-    - openllm-list-models --help
   requires:
     - python {{ python_min }}
     - pip
@@ -66,7 +54,7 @@ about:
   summary: 'OpenLLM: Operating LLMs in production'
   home: https://github.com/bentoml/OpenLLM
   license: Apache-2.0
-  license_file: LICENSE.md
+  license_file: LICENSE
 
 extra:
   recipe-maintainers:
