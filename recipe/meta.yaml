@@ -30,7 +30,7 @@ requirements:
     - hatch-fancy-pypi-readme ==23.1.0
     - pip
   run:
-    - python
+    - python >={{ python_min }}
     - bentoml >=1.1.11,<1.2
     - transformers >=4.36.0
     - openllm-client >={{ version }}
@@ -59,6 +59,7 @@ test:
     - openllm-list-bentos --help
     - openllm-list-models --help
   requires:
+    - python {{ python_min }}
     - pip
 
 about:
