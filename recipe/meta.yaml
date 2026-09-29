@@ -12,7 +12,9 @@ source:
 build:
   entry_points:
     - openllm = openllm.__main__:app
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  script: |
+    {{ PYTHON }} -c "import pathlib; p = pathlib.Path('pyproject.toml'); p.write_text(p.read_text().replace('bentoml==1.4.8', 'bentoml>=1.4.8'))"
+    {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
   noarch: python
 
